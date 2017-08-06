@@ -19,7 +19,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     public void launchLeaderboards(View view) {
-        Intent intent = new Intent(this, ScrollingActivity.class);
+        Intent intent = new Intent(this, ScoreTableActivity.class);
         startActivity(intent);
     }
 }

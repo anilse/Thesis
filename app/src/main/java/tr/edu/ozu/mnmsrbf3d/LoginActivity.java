@@ -22,8 +22,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         EditText userName = (EditText)findViewById(R.id.editText2);
-        Toast.makeText(this, userName.getText() + " is the player's name!!!!",
+        Toast.makeText(this, userName.getText().toString() + " is the player's name!!!!",
                 Toast.LENGTH_LONG).show();
+
+        ScoreDatabase dbHelper = new ScoreDatabase(this);
+        dbHelper.open();
+        dbHelper.insertSomeScores();
+        dbHelper.createUser(userName.getText().toString(), 255);
+        dbHelper.close();
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }

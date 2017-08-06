@@ -13,4 +13,15 @@
         android:text="Game will be played on this screen"
         tools:layout_editor_absoluteX="113dp"
         tools:layout_editor_absoluteY="149dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:onClick="launchLeaderboards"
+        android:text="Button" />
+
 </RelativeLayout>
