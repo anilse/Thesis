@@ -1,12 +1,14 @@
 package tr.edu.ozu.mnmsrbf3d;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
@@ -14,7 +16,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ScoreTableActivity extends Activity {
+public class ScoreTableActivity extends Activity implements View.OnClickListener {
 
     private ScoreDatabase dbHelper;
     private SimpleCursorAdapter dataAdapter;
@@ -23,9 +25,11 @@ public class ScoreTableActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_table_main);
+        Button deleter = (Button)findViewById(R.id.button5);
 
         dbHelper = new ScoreDatabase(this);
         dbHelper.open();
+        deleter.setOnClickListener(this);
         //Generate ListView from SQLite Database
         displayListView();
     }
@@ -97,5 +101,16 @@ public class ScoreTableActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(this, " Deleting all entries...",
+                Toast.LENGTH_LONG).show();
+        dbHelper.deleteAllScores();
+        Toast.makeText(this, " Deleted!!!",
+                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, ScoreTableActivity.class);
+        startActivity(intent);
     }
 }

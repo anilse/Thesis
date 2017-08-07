@@ -27,8 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         ScoreDatabase dbHelper = new ScoreDatabase(this);
         dbHelper.open();
-        dbHelper.insertSomeScores();
-        dbHelper.createUser(userName.getText().toString(), 255);
+        dbHelper.createUser(userName.getText().toString(), (int)(Math.random() * 101));
         dbHelper.close();
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
