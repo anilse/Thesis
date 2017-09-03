@@ -5,12 +5,13 @@ using UnityEngine;
 public class CreateBlock : MonoBehaviour {
 
     public Rigidbody prefab;
-    public Vector3 position;
+    public Vector3 position, nextPosition;
     public Quaternion rotation;
+    public bool blockCreated;
 
     // Use this for initialization
     void Start()
-    {
+    {/*
         Renderer renderer = prefab.GetComponent<Renderer>();
         Material rootMat = new Material(Shader.Find("Standard"));
         var num = Random.Range(0, 2);
@@ -20,10 +21,20 @@ public class CreateBlock : MonoBehaviour {
             rootMat.color = Color.blue;
         renderer.sharedMaterial = rootMat;
         StartCoroutine(FillGrid(num, renderer, rootMat));
+        */
     }
 
-    IEnumerator FillGrid(int num, Renderer renderer, Material rootMat)
+    public IEnumerator SpawnBlock()
     {
+        Renderer renderer = prefab.GetComponent<Renderer>();
+        Material rootMat = new Material(Shader.Find("Standard"));
+        blockCreated = false;
+        var num = Random.Range(0, 2);
+        if (num == 0)
+            rootMat.color = Color.red;
+        else
+            rootMat.color = Color.blue;
+        renderer.sharedMaterial = rootMat;
 
         float startingZ = position.z;
         for (int x = 0; x < 5; x++)
@@ -33,7 +44,10 @@ public class CreateBlock : MonoBehaviour {
             {
                 yield return null;
 
-                Instantiate(prefab.transform, position, rotation);
+                Instantiate(prefab.transform, position, rotation).gameObject.name = "Cube" + x.ToString() + y.ToString();
+                //GameObject.Find("Cube" + x.ToString() + y.ToString()).tag = "CubesoftheBlock";
+                
+                GameObject.Find("Cube" + x.ToString() + y.ToString()).transform.SetParent(GameObject.Find("Cube00").transform);
                 num = Random.Range(0, 2);
                 renderer.sharedMaterial = new Material(rootMat);
                 if (num == 0)
@@ -45,7 +59,15 @@ public class CreateBlock : MonoBehaviour {
             }
             position.x = position.x + 4;
         }
+        if (GameObject.Find("Cube44") != null)
+            blockCreated = true;
 
+    }
+
+    public void MoveDown() {
+        nextPosition = GameObject.Find("Cube00").transform.position;
+        nextPosition.y -= (float) 1.0;
+        GameObject.Find("Cube00").transform.position = nextPosition;
     }
 
     // Update is called once per frame
