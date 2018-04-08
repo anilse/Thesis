@@ -286,6 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CreateBlock.cs" />
+    <Compile Include="Assets\Scripts\CubeCollision.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
